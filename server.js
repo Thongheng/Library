@@ -14,6 +14,8 @@ import bodyParser from 'body-parser'
 //route
 import { router } from './routes/route.js'
 import { authorRouter } from './routes/authors.js'
+import { bookRouter } from './routes/books.js'
+
 
 
 // variable
@@ -46,6 +48,8 @@ app.use(bodyParser.urlencoded({limit: '10mb', extended: false}))
 //server
 app.use('/', router)
 app.use('/authors', authorRouter) // authors route will start with /authors
+app.use('/books', bookRouter) // books route will start with /books
+
 
 app.listen(process.env.PORT || 3000, () => {
     console.log('Server is running')
