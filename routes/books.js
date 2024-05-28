@@ -1,27 +1,11 @@
 import express from "express";
-import multer from "multer";
-import path from "path";
-import fs from "fs";
-import { Books, coverImage } from "../model/book.js";
+import { Books } from "../model/book.js";
 import { Author } from "../model/author.js";
 
 const bookRouter = express.Router();
 
 const imageMimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
-const uploadPath = path.join('public', coverImage);
 
-// Ensure the upload directory exists
-if (!fs.existsSync(uploadPath)) {
-    fs.mkdirSync(uploadPath, { recursive: true });
-}
-
-const upload = multer({
-    dest: uploadPath,
-    fileFilter: (req, file, callback) => {
-        const isValid = imageMimeTypes.includes(file.mimetype);
-        callback(null, isValid);
-    }
-});
 
 // Route to display all books
 bookRouter.get('/', async (req, res) => {
@@ -54,45 +38,28 @@ bookRouter.get("/new", async (req, res) => {
 });
 
 // Route to handle book creation
-bookRouter.post('/', upload.single('cover'), async (req, res) => {
-    const { title, author, publishDate, pageCount, description } = req.body;
-    const cover = req.file ? req.file.filename : null;
-
+bookRouter.post('/',async (req, res) => {
+    const { title, author, publishDate, cover, pageCount, description } = req.body;
     const book = new Books({
         title,
         author,
         publishDate: new Date(publishDate),
         pageCount,
-        cover,
         description
     });
+
+    saveCover(book, cover)
 
     try {
         const newBook = await book.save();
         res.redirect('/books');
     } catch (error) {
-        if (book.cover != null) {
-            removeBookCover(book.cover)
-        }
+        console.error(error);
         renderNewPage(res, book, true);
     }
 });
 
-async function removeBookCover(fileName) {
-    const filePath = path.join(uploadPath, fileName); // Construct the full path
-    try {
-        await fs.promises.access(filePath);
-        await fs.promises.unlink(filePath);
-        console.log(`Successfully removed book cover: ${fileName}`);
 
-    } catch (err) {
-        if (err.code === 'ENOENT') {
-            console.log(`File not found: ${fileName}`);
-        } else {
-            console.error(`Error removing book cover: ${fileName}`, err);
-        }
-    }
-}
 async function renderNewPage(res, book, hasError = false) {
     try {
         const authors = await Author.find({});
@@ -108,5 +75,12 @@ async function renderNewPage(res, book, hasError = false) {
     }
 }
 
-
+function saveCover(book, coverEncoded) {
+    if(coverEncoded == null) return
+    const cover = JSON.parse(coverEncoded)
+    if (cover != null && imageMimeTypes.includes(cover.type)) {
+        book.coverImage = new Buffer.from(cover.data, 'base64')
+        book.coverImageType = cover.type 
+    }
+}
 export { bookRouter };

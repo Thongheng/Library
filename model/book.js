@@ -1,6 +1,4 @@
 import mongoose from "mongoose";
-import path from "path";
-const coverImage = 'uploads/bookCovers';
 
 const BookSchema = new mongoose.Schema({
     title: {
@@ -24,7 +22,11 @@ const BookSchema = new mongoose.Schema({
         required: true,
         default: Date.now
     },
-    cover: {
+    coverImage: {
+        type: Buffer,
+        required: true
+    },
+    coverImageType: {
         type: String,
         required: true
     },
@@ -35,11 +37,11 @@ const BookSchema = new mongoose.Schema({
     }
 });
 
-BookSchema.virtual('coverImage').get(function() {
-    if(this.cover != null) {
-        return path.join('/', coverImage, this.cover)
+BookSchema.virtual('coverImagePath').get(function() {
+    if(this.coverImage != null && this.coverImageType != null) {
+        return `data:${this.coverImageType};charset=utf-8;base64,${this.coverImage.toString('base64')}`
     }
 })
 
 const Books = mongoose.model('Books', BookSchema);
-export { Books, coverImage };
+export { Books }
