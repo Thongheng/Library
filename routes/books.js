@@ -3,7 +3,6 @@ import { Books } from "../model/book.js";
 import { Author } from "../model/author.js";
 
 const bookRouter = express.Router();
-
 const imageMimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
 
 

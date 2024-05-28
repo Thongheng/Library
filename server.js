@@ -10,7 +10,7 @@ import { dirname } from 'path'
 import { fileURLToPath } from 'url'
 import mongoose from 'mongoose'
 import bodyParser from 'body-parser'
-
+import  methodOverride from 'method-override'
 //route
 import { router } from './routes/route.js'
 import { authorRouter } from './routes/authors.js'
@@ -42,6 +42,7 @@ app.set('layout', 'layout/layout')
 app.use(expressLayouts)
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({limit: '10mb', extended: false}))
+app.use(methodOverride('_method'))
 
 
 

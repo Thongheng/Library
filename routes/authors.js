@@ -1,6 +1,7 @@
 import express from "express";
 const authorRouter = express.Router()
 import { Author } from "../model/author.js"
+import { Books } from "../model/book.js";
 
 
 // all author
@@ -33,8 +34,7 @@ authorRouter.post('/', async (req, res) => {
     })
     try {
         const newAuthor =  await author.save()
-        // res.redirect(`authors/${newAuthor.id}`)
-        res.redirect(`authors`)
+        res.redirect(`authors/${newAuthor.id}`)
     } catch (error) {
         res.render('authors/new', {
             author: author,
@@ -43,5 +43,58 @@ authorRouter.post('/', async (req, res) => {
     }
    
 })
+
+authorRouter.get('/:id', async (req, res) => {
+    try {
+        const author = await Author.findById(req.params.id) 
+        const books = await Books.find({author: author.id}).limit(6).exec()
+        res.render('authors/show', {
+            author: author,
+            bookByAuthor: books
+        })
+    } catch (error) {
+        res.redirect('/')
+    }
+})
+
+authorRouter.get('/:id/edit', async (req, res) => {
+    try {
+        const author = await Author.findById(req.params.id)
+        res.render("authors/edit", {author: author})        
+    } catch (error) {
+        console.log(error)
+        res.redirect('/authors')
+    }
+})
+
+authorRouter.put('/:id', async (req, res) => {
+    let author
+    try {
+        author = await Author.findById(req.params.id)
+        author.name = req.body.name
+        await author.save()
+        res.redirect(`/authors/${author.id}`)
+    } catch (error) {
+        if(author == null) {
+            res.redirect('/')
+        } else {
+            res.render('authors/edit', {
+                author: author,
+                errorMessage: 'Error updating Author'
+            })
+        }
+    }
+})
+
+authorRouter.delete('/:id', async (req, res) => {
+    try {
+        await Author.deleteOne({ _id: req.params.id });
+        res.redirect('/authors');
+        console.log('delete successfully');
+    } catch (error) {
+        console.log(error);
+        res.redirect(`/authors/${req.params.id}`);
+    }
+});
 
 export {authorRouter}
