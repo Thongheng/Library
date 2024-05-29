@@ -22,7 +22,7 @@ import { bookRouter } from './routes/books.js'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 const app = express()
-
+const port = 3000
 
 
 // database  
@@ -52,6 +52,6 @@ app.use('/authors', authorRouter) // authors route will start with /authors
 app.use('/books', bookRouter) // books route will start with /books
 
 
-app.listen(process.env.PORT || 3000, () => {
-    console.log('Server is running')
+app.listen(process.env.PORT || port, () => {
+    console.log(`http://localhost:${port}` )
 })
