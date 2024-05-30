@@ -1,0 +1,31 @@
+@import 'shared/fonts.css';
+@import 'shared/variable.css';
+@import 'shared/header.css';
+@import 'shared/botton.css';
+:root{   
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    color: var(--color-text);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: white;
+}
+.container {
+    width: 1200px;
+    margin: auto;
+    margin-bottom: 3rem;
+}
+
+.inner-container {
+    margin: 0 2rem;
+}
+
+.page-header {
+    font-size: 2rem;
+    font-weight: 600;
+}

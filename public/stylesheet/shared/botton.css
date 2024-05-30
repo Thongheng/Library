@@ -1,0 +1,52 @@
+:root{
+    --color-btn-primary-background: rgb(19, 75, 135);
+    --color-btn-primary-text: white;
+    --color-btn-border: rgb(0, 0, 0);
+    --color-btn-delete-background: rgb(160, 70, 0);
+    --color-btn-primary-background-dark: rgba(19, 75, 135, 0.8);
+    --color-btn-delete-background-dark: rgba(160, 70, 0, 0.8);
+}
+
+.btn{
+    border: 1px solid var(--color-btn-border);
+    border-radius: .5rem;
+    padding: .5rem 1rem;
+    font-size: 1.2rem;
+    font-family: "Poppins", sans-serif;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+}
+
+.btn-primary{
+    background-color: var(--color-btn-primary-background);
+    color: var(--color-btn-primary-text);
+}
+
+.btn-primary:hover{
+    background-color: var(--color-btn-primary-background-dark);
+}
+
+.btn-delete{
+    color: var(--color-btn-primary-text);
+    background-color: var(--color-btn-delete-background);
+}
+
+.btn-delete:hover{
+    background-color: var(--color-btn-delete-background-dark);
+}
+
+
+.btn-row{
+    display: flex;
+    align-items: flex-start;
+}
+
+.btn-row > *{
+    margin-left: 1rem;
+}
+
+.btn-row > *:first-child{
+    margin-left: 0;
+}
+
