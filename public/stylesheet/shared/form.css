@@ -1,0 +1,79 @@
+:root {
+    --form-label-size: 1rem;
+    --form-label-weight: 600;
+}
+
+.form-row {
+    display: flex;
+    margin-bottom: .5rem;
+}
+
+.form-item {
+    display: flex;
+    flex-direction: column;
+    margin-left: 2rem;
+    flex-grow: 1;
+    flex-basis: 0;
+    
+}
+
+.form-item:first-child {
+    margin-left: 0;
+}
+
+.form-item-no-grow{
+    flex-grow: 0;
+}
+
+.form-item > label {
+    font-size: var(--form-label-size);
+    font-weight: var(--form-label-weight);
+    margin-bottom: .25rem;
+    margin-left: .25rem;
+}
+
+.form-item input, .form-item select, .form-item textarea {
+    height: 2rem;
+    padding: .25rem .5rem;
+    border-radius: .25rem;
+    border: 1px solid rgb(163, 163, 163);
+    background-color: azure;
+    font-size: 1rem;
+    color: rgb(88, 88, 88);
+    font-family: "Popins", sans-serif;
+    font-weight: normal;
+    outline: none;
+}
+.form-item input:focus, .form-item select:focus, .form-item textarea:focus{
+    border-color: rgb(66, 66, 66);
+}
+
+.form-item textarea {
+    height: 100%;
+    resize: none;
+}
+
+.form-item select option{
+    background-color: rgb(255, 255, 255);
+}
+
+
+
+.filepond--root {
+    font-family: "Poppins", sans-serif;
+    margin-bottom: 0;
+}
+
+.filepond--panel-root{
+    background-color: azure ;
+    border: 1px solid rgb(163, 163, 163);
+}
+
+.filepond--drop-label{
+    color: rgb(88, 88, 88);
+    font-size: inherit;
+}
+
+.form-row-end{
+    justify-content: flex-end;
+}

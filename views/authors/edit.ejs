@@ -3,8 +3,14 @@
 <form action="/authors/<%= author.id %>?_method=PUT" method="post"> 
 
     <!-- render form from _form_field.ejs -->
-    <label for="">Name</label>
-    <input type="text" name="name" value="<%= author.name %>">
-    <a href="/authors/<%= author.id %>">Cancel</a>
-    <button type="submit">Update</button>
+    <div class="form-row">
+        <div class="form-item">
+            <label for="">Name</label>
+            <input type="text" name="name" value="<%= author.name %>">
+        </div>
+    </div>
+    <div class="form-row form-row-end btn-row">
+        <a class="btn btn-primary" href="/authors/<%= author.id %>">Cancel</a>
+        <button class="btn btn-delete" type="submit">Update</button>
+    </div>
 </form>

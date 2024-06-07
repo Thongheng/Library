@@ -10,8 +10,8 @@
 .btn{
     border: 1px solid var(--color-btn-border);
     border-radius: .5rem;
-    padding: .5rem 1rem;
-    font-size: 1.2rem;
+    padding: .3rem 1rem;
+    font-size: 1rem;
     font-family: "Poppins", sans-serif;
     cursor: pointer;
     text-decoration: none;
