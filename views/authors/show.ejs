@@ -5,9 +5,5 @@
 </div>
 <% if(bookByAuthor.length > 0){ %>
     <h3 class="page-header">Book by author</h3>
-    <ul>
-        <% bookByAuthor.forEach(book => { %>
-            <a href="/books/<%= book.id %>"><img height="150" width="100" src="<%= book.coverImagePath %>" alt=""></a>
-        <% }); %>
-    </ul>
+    <%- include('../partials/bookgrid.ejs', {books: bookByAuthor}) %>
 <% } %>
